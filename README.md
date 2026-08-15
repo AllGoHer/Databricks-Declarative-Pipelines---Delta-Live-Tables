@@ -3,11 +3,11 @@ ________________________________________________________________________________
 
 1.	Creamos un catálogo ejem. dltallgoher y configuramos.
 
-[image](https://github.com/user-attachments/assets/9cc6a0cc-b4c8-417d-8f40-6aa4c2576f9f)
+![image](https://github.com/user-attachments/assets/9cc6a0cc-b4c8-417d-8f40-6aa4c2576f9f)
 
-[image](https://github.com/user-attachments/assets/7de2383c-6d5b-4de5-938a-7b6f556ae8e1)
+![image](https://github.com/user-attachments/assets/7de2383c-6d5b-4de5-938a-7b6f556ae8e1)
 
-[image](https://github.com/user-attachments/assets/97cd2830-9e4e-417b-9586-0b4b254bab7b)
+![image](https://github.com/user-attachments/assets/97cd2830-9e4e-417b-9586-0b4b254bab7b)
 
 [image](https://github.com/user-attachments/assets/c39025e7-649f-4074-89a9-ccd1e2650e89)
 
