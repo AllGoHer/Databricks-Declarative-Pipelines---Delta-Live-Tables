@@ -202,16 +202,18 @@ ________________________________________________________________________________
 
 **DLT MATERIALIZED VIEW**
 
-##### Create Materialized View
+Código:
 
-@dlt.table(
-    name = "first_mat_view"
-)
+        ## Create Materialized View
 
-def first_mat_view():
+        @dlt.table(
+            name = "first_mat_view"
+        )
+
+        def first_mat_view():
     
-    df= spark.read.table("dltallgoher.source.orders")
-    return df
+            df= spark.read.table("dltallgoher.source.orders")
+            return df
 
 
 ![image](https://github.com/user-attachments/assets/0e357d13-73f2-4101-93fb-0f1ea92f7b5a)
