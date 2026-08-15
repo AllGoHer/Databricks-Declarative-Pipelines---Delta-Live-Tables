@@ -166,9 +166,35 @@ Luego renombramos el archivo transformations por transformations_SourceCode.
 
 Y también, creamos la carpeta demo dentro de transformations_SourceCode.
 
-![image]()
+![image](https://github.com/user-attachments/assets/9acb7a3d-4d07-407b-b52d-7e37acb4a7ff)
 
-![image]()
+Ahora creamos dentro del archivo demo un file llamado 1_StreamTable (el file se crea automatico, luego será renombrado)
+
+
+![image](https://github.com/user-attachments/assets/e19ba989-b02d-4889-806e-1c4f97473be1)
+
+________________________________________________________________________________________________________________________________________________________________________________________________________________
+DLT STREAM
+
+Ahora ejecutamos el siguiente código de python decorativo de forma seca (Dry Run)
+
+
+Código:
+
+
+        import dlt
+
+        # Creating Stream table
+
+        @dlt.table(
+            name = "first_stream_table"
+        )
+
+        def first_stream_table():
+    
+            df= spark.readStream.table("dltallgoher.source.orders")
+            return df
+
 
 ![image]()
 
