@@ -70,55 +70,101 @@ SQL:
 Luego damos correr (Run all)
 
 
-![image]()
+![image](https://github.com/user-attachments/assets/34ad4b8a-c196-42bc-882f-4d5699691ab1)
 
-![image]()
+Sql:
 
-![image]()
+        SELECT * FROM orders;
 
-![image]()
 
-![image]()
+![image](https://github.com/user-attachments/assets/0b5b79aa-fd44-424d-970e-ac5da63fb531)
 
-![image]()
+Ahora moveremos el cuaderno (notebook) al archivo o espacio de trabajo que creamos al comienzo (Declarative Pipeline).
 
-![image]()
+1.	Hacemos click en el icono de la carpeta y en la ventana desplegable seleccionamos source_orders.
+   
+2.	En la ventana emergente hacemos click en move.
+   
+3.	En la ventana emergente hacemos click en Declarative Pipeline y luego en move.
 
-![image]()
 
-![image]()
+![image](https://github.com/user-attachments/assets/30e91b0a-04d4-4972-a262-5e3c9912eb0e)
 
-![image]()
+![image](https://github.com/user-attachments/assets/de543793-1a60-4427-925f-30592e47b07e)
 
-![image]()
+Luego hacemos click en move
 
-![image]()
+![image](https://github.com/user-attachments/assets/6ce2a1f4-6d90-4c04-b05c-9cc7c82c9e97)
 
-![image]()
+Luego nos vamos a workspace y seleccionamos declarative pipeline
 
-![image]()
+![image](https://github.com/user-attachments/assets/ae0283e3-e67a-4ce8-9836-a8e952d6b92a)
 
-![image]()
+Ahora creamos una nueva carpeta DTL.
 
-![image]()
+![image](https://github.com/user-attachments/assets/751dadb0-0a18-4397-ba84-9b9f37e24ef1)
 
-![image]()
+![image](https://github.com/user-attachments/assets/0c543c41-a1a7-4376-bc2e-d59a4c84028e)
 
-![image]()
+Ahora nos vamos a JOB & PIPELINES, luego hacemos click en crear y seleccionamos ETL pipeline.
 
-![image]()
+![image](https://github.com/user-attachments/assets/5ec087c4-2ab5-4afa-b3ce-4eaf20e471ea)
 
-![image]()
+![image](https://github.com/user-attachments/assets/72dfbf54-8268-4cdd-9e15-e9aace57571b)
 
-![image]()
+Luego hacemos click en workspace y seleccionamos dtlallgoher.
 
-![image]()
+![image](https://github.com/user-attachments/assets/e3296669-00c8-4d29-b3c6-9496aa70c5ef)
 
-![image]()
+Y en esquema seleccionamos crear esquema (+ Create schema)
 
-![image]()
+![image](https://github.com/user-attachments/assets/4c54ef2c-123d-4b27-8c2a-42c9b01828c8)
 
-![image]()
+Luego le asignamos el nombre de dtl_schema
+
+![image](https://github.com/user-attachments/assets/e0a41aa2-8fae-431d-aa23-e3f94687ed01)
+
+Luego guardar.
+
+![image](https://github.com/user-attachments/assets/0aa3aa8c-b689-43d3-8ad4-0cd928e3e052)
+
+![image](https://github.com/user-attachments/assets/ccc15c7f-f316-45ca-a329-14ae0d72ca04)
+
+Ahora movemos el NEW PIPELINE a la carpeta de trabajo.
+
+![image](https://github.com/user-attachments/assets/55e2c2d3-0e85-4f84-b0b7-be0fa6fd9744)
+
+Luego en la ventana emergente hacemos click en FOR YOU y seleccionamos DLT nuestra carpeta de trabajo que creamos anteriormente.
+
+![image](https://github.com/user-attachments/assets/f50efbe8-1540-4fbf-9b30-5fa37cdf7e7b)
+
+Y por último, hacemos click en move.
+
+![image](https://github.com/user-attachments/assets/6c1b148f-0035-4a70-8a95-b7d6f24b991e)
+
+Ahora hacemos click en la ventana pipeline
+
+![image](https://github.com/user-attachments/assets/4dbffbb5-118b-4b20-bb4f-5fc63fb46f94)
+
+Luego hacemos click en los tres puntitos de la carpeta New Pipeline 2026-07-29 y, en la ventana emergente hacemos click en Rename root folder.
+
+![image](https://github.com/user-attachments/assets/38962134-48bb-49e4-bb3c-eb110d06eeee)
+
+![image](https://github.com/user-attachments/assets/677d63f1-3c2e-48ec-9835-ca48e648661f)
+
+Ahora cambiamos el nombre de la canalización por DLT_Tutorial
+
+![image](https://github.com/user-attachments/assets/4228c98d-b531-46a6-8f04-10d2448ad0a1)
+
+![image](https://github.com/user-attachments/assets/9c3a0ba5-622d-43fb-9ea5-46d2454ab5fe)
+
+Luego renombramos el archivo transformations por transformations_SourceCode.
+
+![image](https://github.com/user-attachments/assets/d8b79cfd-77a8-48c9-8980-1b2160c23c7d)
+
+![image](https://github.com/user-attachments/assets/1ddefd1a-c409-4732-82f2-c88c0c85838b)
+
+Y también, creamos la carpeta demo dentro de transformations_SourceCode.
 
 ![image]()
 
