@@ -174,7 +174,7 @@ Ahora creamos dentro del archivo demo un file llamado 1_StreamTable (el file se 
 ![image](https://github.com/user-attachments/assets/e19ba989-b02d-4889-806e-1c4f97473be1)
 
 ________________________________________________________________________________________________________________________________________________________________________________________________________________
-DLT STREAM
+## DLT STREAM
 
 Ahora ejecutamos el siguiente código de python decorativo de forma seca (Dry Run)
 
@@ -196,55 +196,276 @@ Código:
             return df
 
 
-![image]()
+![image](https://github.com/user-attachments/assets/bff5c253-2f96-4e4b-9e54-24d4b0cc24cc)
 
-![image]()
+____________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
-![image]()
+**DLT MATERIALIZED VIEW**
 
-![image]()
+# Create Materialized View
 
-![image]()
+@dlt.table(
+    name = "first_mat_view"
+)
 
-![image]()
+def first_mat_view():
+    
+    df= spark.read.table("dltallgoher.source.orders")
+    return df
 
-![image]()
 
-![image]()
+![image](https://github.com/user-attachments/assets/0e357d13-73f2-4101-93fb-0f1ea92f7b5a)
 
-![image]()
 
-![image]()
+Ahora crearemos dos tipos de vistas una en batch y otra en stream.
 
-![image]()
+Código:
 
-![image]()
+        # Create Batch View
 
-![image]()
+        @dlt.view(
+            name = "first_batch_view"
+        )
 
-![image]()
+        def first_batch_view():
+    
+            df= spark.read.table("dltallgoher.source.orders")
+            return df
 
-![image]()
+        # Create Streaming View
+        @dlt.view(
+            name = "first_stream_view"
+        )
 
-![image]()
+        def first_stream_view():
+    
+            df= spark.readStream.table("dltallgoher.source.orders") 
+            return df
 
-![image]()
 
-![image]()
+![image](https://github.com/user-attachments/assets/26bc7d6e-69d5-45d7-b7ca-5bbf6e2a5deb)
 
-![image]()
+![image](https://github.com/user-attachments/assets/c04b6984-77de-49cd-b6c1-9435a89a2361)
 
-![image]()
+Renombramos el cuaderno de StreamTable a Core_Components.
 
-![image]()
+![image](https://github.com/user-attachments/assets/67d89382-8b39-4124-94ba-76bc3847acbe)
 
-![image]()
+Ahora creamos un nuevo archivo dependencia.
 
-![image]()
+![image](https://github.com/user-attachments/assets/85fbff9e-8962-436b-918a-34e7eeeeeae1)
 
-![image]()
+Luego en Core_Components ejecutamos el pipeline y obtenemos lo siguiente.
 
-![image]()
+![image](https://github.com/user-attachments/assets/6ccfb8cc-a96f-471e-9da5-2ce5210c5e08)
+
+![image](https://github.com/user-attachments/assets/dcae3893-dff0-40ac-9bd0-2e02611a8cab)
+
+Volvemos a SQL Editor y, agregamos más datos.
+
+Código:
+
+        --Inserting more data
+        INSERT INTO orders
+        VALUES (6, '2023-01-06', 106, 'shipped'),
+               (7, '2023-01-07', 107, 'processing');
+
+
+![image](https://github.com/user-attachments/assets/4dcd4db7-0d9e-42ef-9cb7-304c18f19609)
+
+Seleccionamos solo lo que agregamos y ejecutamos.
+
+![image](https://github.com/user-attachments/assets/bf555d15-7921-4497-be0e-6721d1276114)
+
+Luego volvemos al cuderno de core_components y ejecutamos el pipeline nuevamente.
+
+![image](https://github.com/user-attachments/assets/7123554b-38b1-41d3-92f7-04ea395f35ea)
+
+Y ahora vemos un incremento de 2 elementos en first_mat_view, que paso de 5 a 7 y, en frist_stream_table de 1 a 2.
+
+![image](https://github.com/user-attachments/assets/00ad533c-6a71-4afd-8ebe-c9273e0d1939)
+
+![image](https://github.com/user-attachments/assets/8357c686-bbc9-4504-841d-1091f1be2292)
+
+En el cuaderno dependencia. Pasamos el siguiente código.
+
+Código:
+
+        import dlt
+
+        #Creating End To End Basic Pipeline
+
+        # Staging Area
+        @dlt.table(
+            name = "staging_orders"
+        )
+
+        def staging_orders():
+    
+            df = spark.readStream.table("dltallgoher.source.orders")
+            return df
+
+
+y ejecutamos el código en seco (Dry Run)
+
+
+![image](https://github.com/user-attachments/assets/eb15180a-7ac4-4a59-90c8-78285e94568c)
+
+
+Ahora pasamos el siguiente código.
+
+Código:
+
+        # Creating Transformed Area
+        @dlt.view(
+            name = "transformed_orders"
+        )
+
+        def transformed_orders():
+    
+             df = spark.readStream.table("staging_orders")
+             return df
+
+y ejecutamos en seco y, veremos un tipo de dependencia o Linaje.
+
+
+![image](https://github.com/user-attachments/assets/5b9e8cc5-5c40-47f0-a8eb-e2ad761d5746)
+
+Abrimos un nuevo cuaderno exploratorio y pasamos el siguiente código.
+
+Código:
+
+        df = spark.read.table("dltallgoher.source.orders")
+        display(df)
+
+
+![image](https://github.com/user-attachments/assets/f853b69d-b087-4118-976d-c84db69aca39)
+
+Luego hacemos las modificaciones a los siguiente códigos y ejecutamos en seco ( RunDry).
+
+Código:
+
+        import dlt
+        from pyspark.sql.functions import lower, col
+
+        # Creating Transformed Area
+        @dlt.view(
+            name = "transformed_orders"
+        )
+
+        def transformed_orders():
+    
+            df = spark.readStream.table("staging_orders")
+            df = df.withColumn("order_status", lower(col('order_status')))
+            return df
+
+        # Creating Aggregated Area
+        @dlt.table(
+            name = "aggregated_orders"
+        )
+
+        def aggregated_orders():
+    
+            df = spark.readStream.table("transformed_orders")
+            df = df.groupBy("order_status").count()
+            return df
+
+
+![image](https://github.com/user-attachments/assets/6a9fa05b-6618-4d0e-b5a0-545612a1c59e)
+
+Ejecutamos y obtenemos el siguiente Linaje.
+
+![image](https://github.com/user-attachments/assets/25cf132a-0496-463c-af8f-29c4126f6685)
+
+![image](https://github.com/user-attachments/assets/7b4894fd-590e-459f-9509-8cdf36d384b8)
+
+![image](https://github.com/user-attachments/assets/1546f439-9d4f-4ddf-bb11-e04ed2dc81b9)
+
+Ahora nos vamos a workspace y seleccionamos Declarative Pipeline.
+
+![image](https://github.com/user-attachments/assets/719be6db-c990-4eb0-8605-ab417f1ae712)
+
+Luego creamos un query y lo renombramos DHW_source.
+
+![image](https://github.com/user-attachments/assets/752ddaa6-1217-4b24-b2b8-0815e62d5bf1)
+
+![image](https://github.com/user-attachments/assets/f1a125af-be81-4d35-92e0-5f8a7eea9d6d)
+
+Ahora cargamos el siguiente código y ejecutamos.
+
+Código:
+
+        CREATE TABLE sales_east (
+            sales_id INT PRIMARY KEY,
+            customer_id INT,
+            product_id INT,
+            quantity INT,
+            amount DECIMAL(10,2),
+            sale_timestamp TIMESTAMP
+        );
+
+         -- Initial Load
+        INSERT INTO sales_east VALUES
+        (1, 101, 201, 2, 200.00, '2025-08-01 10:00:00'),
+        (2, 102, 202, 1, 120.00, '2025-08-01 10:05:00'),
+        (3, 103, 203, 5, 500.00, '2025-08-01 10:10:00'),
+        (4, 104, 204, 3, 330.00, '2025-08-01 10:15:00'),
+        (5, 105, 205, 4, 440.00, '2025-08-01 10:20:00');
+
+
+![image](https://github.com/user-attachments/assets/eb193201-8ce9-4c78-8fb9-07eb7b2b7ec5)
+
+Luego pasamos el siguiente código y ejecutamos.
+
+Código:
+
+        CREATE TABLE sales_west (
+            sales_id INT PRIMARY KEY,
+            customer_id INT,
+            product_id INT,
+            quantity INT,
+            amount DECIMAL(10,2),
+            sale_timestamp TIMESTAMP
+        );
+
+        -- Initial Load
+        INSERT INTO sales_west VALUES
+        (8, 107, 207, 1, 150.00, '2025-08-01 11:00:00'),
+        (9, 108, 208, 2, 260.00, '2025-08-01 11:05:00'),
+        (10, 109, 209, 3, 390.00, '2025-08-01 11:10:00'),
+        (11, 110, 210, 1, 130.00, '2025-08-01 11:15:00'),
+        (12, 111, 211, 4, 560.00, '2025-08-01 11:20:00');
+
+
+![image](https://github.com/user-attachments/assets/cbdcbfcf-1ea0-44ff-8863-5f99fbc6b693)
+
+Creamos la tabla de productos.
+
+Código:
+
+  CREATE TABLE products (
+      product_id INT PRIMARY KEY,
+      product_name VARCHAR(100),
+      category VARCHAR(50),
+      price DECIMAL(10,2),
+      last_updated TIMESTAMP
+  );
+
+  -- Initial Load
+  INSERT INTO products VALUES
+  (201, 'Laptop', 'Electronics', 1000.00, '2025-07-31 12:00:00'),
+  (202, 'Phone', 'Electronics', 120.00, '2025-07-31 12:05:00'),
+  (203, 'Monitor', 'Electronics', 100.00, '2025-07-31 12:10:00'),
+  (204, 'Chair', 'Furniture', 110.00, '2025-07-31 12:15:00'),
+  (205, 'Desk', 'Furniture', 150.00, '2025-07-31 12:20:00'),
+  (206, 'Mouse', 'Electronics', 50.00, '2025-07-31 12:25:00'),
+  (207, 'Keyboard', 'Electronics', 60.00, '2025-07-31 12:30:00'),
+  (208, 'Lamp', 'Furniture', 130.00, '2025-07-31 12:35:00'),
+  (209, 'Router', 'Electronics', 130.00, '2025-07-31 12:40:00'),
+  (210, 'Table', 'Furniture', 130.00, '2025-07-31 12:45:00'),
+  (211, 'Notebook', 'Stationery', 140.00, '2025-07-31 12:50:00'),
+  (212, 'Pen', 'Stationery', 150.00, '2025-07-31 12:55:00');
+
 
 ![image]()
 
