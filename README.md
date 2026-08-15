@@ -202,7 +202,7 @@ ________________________________________________________________________________
 
 **DLT MATERIALIZED VIEW**
 
-# Create Materialized View
+##### Create Materialized View
 
 @dlt.table(
     name = "first_mat_view"
